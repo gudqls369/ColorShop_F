@@ -29,3 +29,18 @@ body {
 .page_button:hover {
     color: #00539C;
 }
+
+@media (max-width:768px) {
+    .header_container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 30px;
+    }
+    .dropdown{
+        position: absolute;
+        right: 32px;
+        top:20px;
+    }
+}
