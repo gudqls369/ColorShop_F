@@ -92,14 +92,12 @@
 
 .content-box{
     font-size:19px;
-    /* height: auto; */
 }
 
 .post_buttons {
     min-width: fit-content;
     display: flex;
     flex-direction: column;
-    /* justify-content: flex-end; */
     align-items: flex-end;
     color: black;
     border: none;
@@ -108,8 +106,6 @@
     -webkit-transition: all 150ms ease-in-out;
     transition: all 150ms ease-in-out;
 }
-
-
 
 .heart_box {
     display: flex;

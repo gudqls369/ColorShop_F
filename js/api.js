@@ -1,8 +1,6 @@
 const backend_base_url = 'http://127.0.0.1:8000'
 const frontend_base_url = 'http://127.0.0.1:5500/html/'
 
-
-// 로그인
 async function handleLogin() {
     const username = document.getElementById("username").value
     const password = document.getElementById("password").value
@@ -68,7 +66,6 @@ async function handleRelogin() {
     }
 }
 
-// 로그인 시 정보 가져오기
 async function getName() {
     const response = await fetch(`${backend_base_url}/users/mock/`, {
         headers:{
@@ -105,7 +102,6 @@ async function getUsername() {
     }
 }
 
-// 로그아웃
 function logout() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
@@ -120,35 +116,6 @@ async function getProfile(profile_user_id){
     })
     response_json = await response.json()
     return response_json
-}
-
-async function getPassword(userinfo_user_id){
-    const response = await fetch(`${backend_base_url}/users/changepassword/${userinfo_user_id}/`, {
-        mthod:'GET',
-    })
-    if(response.status == 200){
-        response_json = await response.json()
-        return response_json
-    }else{
-        return null
-    }
-}
-
-async function postPassword(password) {
-    const response = await fetch(`${backend_base_url}/users/changepassword/${userinfo_user_id}/`, {
-        headers:{
-            "Authorization": "Bearer " +localStorage.getItem("access"),
-            'Content-type':'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(password)
-    })
-
-  if (response.status === 200) {
-      alert("비밀번호 확인 완료")
-  } else if (response.status === 400) {
-    alert("현재 비밀번호와 동일한 비밀번호를 입력해주세요")
-  } 
 }
 
 async function putPassword(userinfo_user_id, newPassword, newPassword2){
@@ -274,13 +241,11 @@ async function getPosts(){
     return response_json
 }
 
-// 상세 페이지로 이동
 function postDetail(post_id){
     const url = `${frontend_base_url}post_detail.html?id=${post_id}`
     location.href=url
 }
 
-// 상세 페이지 GET
 async function getPostDetail(post_id) {
     const response = await fetch(`${backend_base_url}/posts/${post_id}/`, {
         method: 'GET'
@@ -290,7 +255,6 @@ async function getPostDetail(post_id) {
     return response_json
 }
 
-// 좋아요 post
 async function postLike() {
     const response = await fetch(`${backend_base_url}/posts/${post_id}/like/`, {
         headers:{
@@ -301,7 +265,6 @@ async function postLike() {
     })
 }
 
-// 좋아요 get
 async function getLike() {
     const response = await fetch(`${backend_base_url}/posts/${post_id}/like/`, {
         method: 'GET'
@@ -311,7 +274,6 @@ async function getLike() {
     return response_json
 }
 
-// 이미지 GET
 async function getImage() {
     const response = await fetch(`${backend_base_url}/posts/image/`, {
         method: 'GET',
@@ -333,7 +295,6 @@ async function getImage() {
     }
 }
 
-// 채색 모델 설정
 async function chooseModel(imagemodel_id){ 
     const response = await fetch(`${backend_base_url}/posts/choosemodel/${imagemodel_id}/`, {
         method:'GET',
@@ -342,7 +303,6 @@ async function chooseModel(imagemodel_id){
     return model_json
 }
 
-// 게시글 POST
 async function postPost(title, content) {
     const getimage = await getImage();
     const response = await fetch(`${backend_base_url}/posts/`, {
@@ -378,7 +338,6 @@ async function postPost(title, content) {
     }
 }
 
-// 이미지 상세 GET
 async function getImageDetail(image_id) {
     const response = await fetch(`${backend_base_url}/posts/image/${image_id}/`, {
         method: 'GET'

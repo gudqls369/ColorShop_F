@@ -1,8 +1,4 @@
-
-// Fireup the plugins
 $(document).ready(function(){
-	
-	// initialise  slideshow
 	 $('.flexslider').flexslider({
         animation: "slide",
         start: function(slider){
@@ -11,9 +7,7 @@ $(document).ready(function(){
       });
 
 });
-/**
- * Handles toggling the navigation menu for small screens.
- */
+
 ( function() {
 	var button = document.getElementById( 'topnav' ).getElementsByTagName( 'div' )[0],
 	    menu   = document.getElementById( 'topnav' ).getElementsByTagName( 'ul' )[0];
@@ -21,7 +15,6 @@ $(document).ready(function(){
 	if ( undefined === button )
 		return false;
 
-	// Hide button if menu is missing or empty.
 	if ( undefined === menu || ! menu.childNodes.length ) {
 		button.style.display = 'none';
 		return false;
