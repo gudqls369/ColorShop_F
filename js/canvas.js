@@ -117,7 +117,7 @@ function cRedo() {
 
 function down(event) {
     onoff = true;
-    oldx = event.offsetX
+    oldx = event.offsetX;
     oldy = event.offsetY;
 }
 
@@ -214,7 +214,6 @@ async function cSketchify() {
     var imageData = new FormData();
     var image = canvas.toDataURL("image/png", 0.1).substring(22)
     imageData.append("image_url", image);
-    imageData.append("model", "./AutoPainter/media/autopaint_model/model1/")
     const response = await fetch(`${backend_base_url}/posts/sketchify/`, {
         method: 'POST',
         headers: {

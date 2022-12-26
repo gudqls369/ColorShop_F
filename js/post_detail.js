@@ -11,11 +11,14 @@ async function loadPostDetail(post_id){
     const postUser = document.getElementById("post_user")
     const postTitle = document.getElementById("post_title")
     const postContent = document.getElementById("post_content")
+    const postTime = document.getElementById("post_time")
+
 
     postImage.setAttribute("src", `${backend_base_url}${image.after_image}`)
     postUser.innerText = post.user
     postTitle.innerText = post.title
     postContent.innerText = post.content
+    postTime.innerText = displayedAt(post.created_at)
 
     // 상세 페이지 댓글 보기
     const comments = await getComments(post_id)

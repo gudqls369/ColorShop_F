@@ -68,7 +68,6 @@ async function postImage() {
 
     var imageData = new FormData();
     imageData.append("before_image", file);
-    console.log(file)
     imageData.append("model", model_json.model_path)
     for (var pair of imageData.entries()) {
         console.log(pair[0]+ ', ' + pair[1]); 
