@@ -10,9 +10,11 @@ async function loadBestPosts() {
         if(a.likes_count < b.likes_count) return -1;
       });
       posts.reverse()
+      const Posts = posts.slice(0,8)
+      console.log(Posts)
 
     const postUI = async () => {
-        for(let post of posts){      
+        for(let post of Posts){      
             const newPost = document.createElement("div")
             newPost.classList.add("new_post")
 
