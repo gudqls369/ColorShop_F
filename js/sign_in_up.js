@@ -4,6 +4,7 @@ const fistForm = document.getElementById("form1");
 const secondForm = document.getElementById("form2");
 const container = document.querySelector(".container");
 const frontend_base_url = 'https://auto-color.shop/html/'
+// const frontend_base_url = 'http://127.0.0.1:5500/html/'
 const backend_base_url = 'http://127.0.0.1:8000'
 
 
@@ -20,6 +21,7 @@ secondForm.addEventListener("submit", (e) => e.preventDefault());
 window.onload = () => {
     container.classList.remove("right-panel-active");
 }
+
 async function handleSignup() {
     const username = document.getElementById("signup_username").value
     const password = document.getElementById("signup_password").value
