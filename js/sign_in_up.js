@@ -4,7 +4,8 @@ const fistForm = document.getElementById("form1");
 const secondForm = document.getElementById("form2");
 const container = document.querySelector(".container");
 const frontend_base_url = 'https://auto-color.shop/html/'
-const backend_base_url = 'https://www.ai-color.shop'
+const backend_base_url = 'http://127.0.0.1:8000'
+
 
 signInBtn.addEventListener("click", () => {
   container.classList.remove("right-panel-active");
@@ -26,7 +27,7 @@ async function handleSignup() {
     const nickname = document.getElementById("nickname").value
     const sign_up_Alert = document.getElementById("sign_up_Alert")
 
-    const response = await fetch('http://127.0.0.1:8000/users/', {
+    const response = await fetch(`${backend_base_url}/users/`, {
         headers: {
             'content-type' : 'application/json',
         },
@@ -65,7 +66,7 @@ async function handleSignup() {
     const Username = document.getElementById("Username").value
     const password = document.getElementById("password").value
     const Alert = document.getElementById("alert")
-    const response = await fetch('http://127.0.0.1:8000/users/api/token/',{
+    const response = await fetch(`${backend_base_url}/users/api/token/`,{
         headers : {
             'content-type' : 'application/json',
         },
