@@ -39,59 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("click", (e) => st.clickHandler(e));
 
-async function loadPosts() {
-    const posts = await getPosts()
-    const post_list = document.getElementById("post_list")
-    const postUI = async () => {
-        for(let post of posts){
-          const newPost = document.createElement("div")
-          newPost.classList.add("post_list")
-          newPost.setAttribute("id", post.id)
-          newPost.setAttribute("onclick", "postDetail(this.id)")
-
-          const postImage = document.createElement("img")
-          const images = await getImageDetail(post.image_id)
-          postImage.setAttribute("src", `${backend_base_url}${images.after_image}`)
-
-          const postContent = document.createElement("span")
-          postContent.classList.add("content")
-          postContent.innerText = post.content
-
-          post_list.append(newPost)
-          newPost.append(postImage)
-          newPost.append(postContent)
-        }
-    }
-    postUI()
-}
-
-async function loadPosts_2() {
-    const posts = await getPosts()
-    const post_list = document.getElementById("post_list_2")
-    posts.reverse()
-    const postUI = async () => {
-      for(let post of posts){
-        const newPost = document.createElement("div")
-        newPost.classList.add("post_list")
-        newPost.setAttribute("id", post.id)
-        newPost.setAttribute("onclick", "postDetail(this.id)")
-
-        const postImage = document.createElement("img")
-        const images = await getImageDetail(post.image_id)
-        postImage.setAttribute("src", `${backend_base_url}${images.after_image}`)
-
-        const postContent = document.createElement("span")
-        postContent.classList.add("content")
-        postContent.innerText = post.content
-
-        post_list.append(newPost)
-        newPost.append(postImage)
-        newPost.append(postContent)
-      }
-    }
-    postUI()
-}
-
 async function loadPosts_3() {
   const posts = await getPosts()
   const gallery = document.getElementById('post_list_3')
@@ -138,7 +85,7 @@ async function searchPost() {
   let query = Object.keys(params)
       .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
       .join('&');
-  let url = 'https://www.ai-color.shop/posts/search/?' + query;
+  let url = 'http://127.0.0.1:8000/posts/search/?' + query;
 
   fetch(url)
       .then(data => data.json())

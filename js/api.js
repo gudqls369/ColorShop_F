@@ -1,5 +1,5 @@
 const backend_base_url = 'http://127.0.0.1:8000'
-const frontend_base_url = 'https://auto-color.shop/html/'
+const frontend_base_url = 'http://127.0.0.1:5500/html/'
 
 
 // 로그인
@@ -36,20 +36,56 @@ async function handleLogin() {
     }
 }
 
+async function handleRelogin() {
+    const response_access = await fetch(`${backend_base_url}/users/api/token/refresh/`, {
+        headers: {
+            'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "refresh": localStorage.getItem("refresh"),
+        })
+    })
+    
+    if (response_access.status == 200) {
+        const response_access_json = await response_access.json()
+        localStorage.setItem("access", response_access_json.access);
+    
+        const base64Url = response_access_json.access.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        localStorage.setItem("payload", jsonPayload);
+        location.reload()
+        getName()
+    }else{
+        localStorage.removeItem("access")
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("payload")
+        return;
+    }
+}
+
 // 로그인 시 정보 가져오기
 async function getName() {
     const response = await fetch(`${backend_base_url}/users/mock/`, {
         headers:{
             'Authorization':'Bearer '+localStorage.getItem("access"),
         },
+        method:'GET'
     })
 
     if (response.status == 200) {
         const payload = localStorage.getItem("payload");
         const payload_parse = JSON.parse(payload)
         return payload_parse.user_id
-    } else {
-        return null
+    } else if (localStorage.getItem("refresh")){
+        handleRelogin()
+    }
+    else {
+        return;
     }
 }
 
