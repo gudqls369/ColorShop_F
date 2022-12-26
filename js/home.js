@@ -11,7 +11,6 @@ async function loadBestPosts() {
       });
       posts.reverse()
       const Posts = posts.slice(0,8)
-      console.log(Posts)
 
     const postUI = async () => {
         for(let post of Posts){      
