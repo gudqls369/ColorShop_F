@@ -65,6 +65,10 @@
     font-size: 20px;
 }
 
+#post_time {
+    font-size: 16px;
+}
+
 .like_container {
     width: auto;
     height: auto;

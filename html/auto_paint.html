@@ -22,71 +22,84 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/auto_paint.css">
+    <link rel="stylesheet" href="/css/spectrum.css">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/basic-style.css">
-
-    <script src="/js/libs/modernizr-2.6.2.min.js"></script>
     <script src="/js/includehtml.js"></script>
+    <script src="/js/spectrum.js"></script>
 
     <title>main</title>
-
-
 </head>
 
-<body id="home">
-    <header class="clearfix" include-html="/html/header.html"></header>
+<body>
+    <header include-html="/html/header.html"></header>
 
-    <section id="hero" class="home_container">
 
-        <div class="wrapper" style="width: 110%;">
-            <div class="row">
-                <div id="each_grid" class="grid_4">
-                    <div class="before_image_box">
-                        <div class="before_image" id="before_image">
-                            <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                            <span class="material-symbols-outlined" style="font-size: 50px;">add_photo_alternate</span>
-                            <header>드래그해서 스케치 이미지 업로드</header>
-                            <span>또는</span>
-                            <button type="button" class="btn btn-outline-dark" id="upload">컴퓨터에서 선택</button>
-                            <input type="file" id="before_img" hidden>
-                        </div>
-                    </div>
-            
+    <div class="left">
+        <br/>
+        <input type="file" id="files" name="files" onchange="selectImage();" />
+        <input type="button" id="import" class="btn btn-light" value="import" />
+        <button id="funcBtn" class="btn btn-light" onclick="cSketchify();">sketchify</button>
+        <button id="funcBtn" class="btn btn-light" onclick="cReset();">reset</button>
+        <button id="funcBtn" class="btn btn-light" onclick="cRedo();">redo</button>
+        <button id="funcBtn" class="btn btn-light" onclick="cUndo();">undo</button>
+        <button id="funcBtn" class="btn btn-light" onclick='linecolor="white";'>erase</button>
+    </div>
+    <div class="content">
+        <div class="canvas_container">
+            <div class="canvas_top">
+                <div class="canvas_myCanvas">
+                    <canvas id="myCanvas" width="512" height="512">
+                        브라우저에서 HTML5를 지원하지 않습니다.
+                    </canvas>
                 </div>
-                
-                <div id="each_grid" class="grid_4">
-                    <div class="btn_box">
-                        <span style="margin: 15px; color: black;">원하는 채색 모델을 고른 후</span>
-                        <div class="frozen">
-                            <button type="button" class="btn btn-outline-dark" id="model1" value="1"
-                                onclick="chooseModel(this.value)"><img src="/static/md11.png" style="max-width:90px; border-radius: 5px;"></button>
-                            <button type="button" class="btn btn-outline-dark" id="model2" value="2"
-                                onclick="chooseModel(this.value)"><img src="/static/md22.png" style="max-width:90px; border-radius: 5px;"></button>
-                            <button type="button" class="btn btn-outline-dark" id="model3" value="3"
-                                onclick="chooseModel(this.value)"><img src="/static/md33.png" style="max-width:90px; border-radius: 5px;"></button>
-                        </div>
-                        <div style="margin: 15px; color:black;">▼</div>
-                        <div>
-                            <button type="button" class="btn btn-outline-dark" id="img_upload_btn"
-                                onclick="postImage()" style="margin: 5px;">채색하기</button>
-                            <button type="button" class="btn btn-outline-dark" id="img_post_btn"
-                                onclick="deepImage()" style="margin: 5px;">공유하기</button>
-                        </div>
-                    </div>
-            
+                <div class="canvas_trans">
+                    <button id="transBtn" class="btn0 btn-4 " onclick="transForm1();">파스텔톤으로<br><b>자동채색</b></button>
+                    <button id="transBtn" class="btn0 btn-4 " onclick="transForm2();">지정한 색에<br><b>맞게 채색</b></button>
+                    <button id="img_post_btn" class="btn0 btn-4" style="font-size: large; font-weight: bold;" onclick="deepImage()" >공유하기</button>
                 </div>
-                
-                <div id="each_grid" class="grid_4">
-                    <div class="after_img_box">
-                        <img src="/static/Spin-1s-200px.gif" alt="loading_image" id="loading_image" class="loading_image" style="display:none;">
-                        <img src="/static/resultbox3.png" alt="sketch_image" id="after_image" class="sketch_image" style="display:block">
-                    </div>
-            
+                <div class="canvas_output">
+                    <img src="" id="imgResult" width="512" height="512">
+                    <progress id="progress" value="0" max="100"></progress>
                 </div>
             </div>
+            <div class="canvas_tools">
+                <br /> COLOUR > <button id="colorBtn" style="background-color:yellow;" onclick='linecolor="yellow";'></button>
+                <button id="colorBtn" style="background-color:#00FF00;" onclick='linecolor="#00FF00";'></button>
+                <button id="colorBtn" style="background-color:red;" onclick='linecolor="red";'></button>
+                <button id="colorBtn" style="background-color:blue;" onclick='linecolor="blue";'></button>
+                <button id="colorBtn" style="background-color:green;" onclick='linecolor="green";'></button>
+                <button id="colorBtn" style="background-color:#E238EC;" onclick='linecolor="#E238EC";'></button>
+                <button id="colorBtn" style="background-color:#FDD017;" onclick='linecolor="#FDD017";'></button>
+                <button id="colorBtn" style="background-color:navy;" onclick='linecolor="navy";'></button>
+                <button id="colorBtn" style="background-color:lightblue;" onclick='linecolor="lightblue";'></button>
+                <button id="colorBtn" style="background-color:gray;" onclick='linecolor="gray";'></button>
+                <button id="colorBtn" style="background-color:black;" onclick='linecolor="black";'></button>
+                <input id="full" />
+                <br />STROKE > <button id="colorBtn" style="background-color:white;" onclick="linw = 1;">1px</button>
+                <button id="colorBtn" style="background-color:white;" onclick="linw = 2;">2px</button>
+                <button id="colorBtn" style="background-color:white;" onclick="linw = 4;">4px</button>
+                <button id="colorBtn" style="background-color:white;" onclick="linw = 8;">8px</button>
+                <button id="colorBtn" style="background-color:white;" onclick="linw = 16;">16px</button>
+                <br />
+            </div>
         </div>
-    </section>
+        <div class="canvas_info_container">
+            <div class="info_text_box">
+                <span class="info_text">
+                    <h5><b><span style="color:dodgerblue">C</span><span style=color:black>olor</span><span
+                                style=color:tomato>S</span><span style=color:black>hop</span> 자동 채색</b> 이용하기</h5>
+                    <p style="line-height:180%; color:rgb(60,60,60)">
+                        1. 'import'버튼을 눌러 밑그림 이미지파일(png,jpg,jpeg)을 캔버스에 올려주세요. 이미 채색이 되어있는 이미지를 준비하셨다면 캔버스에 올린 뒤 'sketchify'버튼을 눌러주세요.<br>
+                        2. '파스텔톤으로 자동채색'은 캔버스에 그려진 이미지를 임의로 채색해주는 방식입니다. 특정 부분에 색을 주고 변환하셔도 결과에 차이는 없습니다.<br>
+                        3. '지정된 색에 맞게 채색'은 캔버스에 입힌 색을 바탕으로 자동채색을 해주는 방식입니다. 원하는 색을 주고 싶은 부분을 채색하고 버튼을 눌러보세요!<br>
+                        4. 채색이 완료되면 결과이미지가 캔버스 우측에 나타납니다. '공유하기'버튼을 누르면 결과 이미지로 게시글을 작성해 ColorShop 커뮤니티에 올릴 수 있습니다.<br>
+                        5. 커뮤니티에서는 다른사람이 올린 게시글에 좋아요와 댓글을 남길 수 있습니다.<br>
+                        6. 좋아요를 많이 받은 게시글은 사이트 메인페이지에 게시됩니다! ColorShop으로 여러분이 그린 그림에 색을 입혀보세요!<br>
+                    </p>
+                </span>
+            </div>
+        </div>
+    </div>
 
     <div id="post_modal" class="modal_overlay">
         <div class="modal_window">
@@ -95,8 +108,8 @@
                     style="width: 100%; height: 100%;">
             </div>
             <div>
-                <input type="text" id="input_title" class="modal_text feed_content_textarea form-control col-sm-5"
-                    rows="1" placeholder="제목을 작성해 주세요" style="background-color: white;">
+                <textarea id="input_title" class="modal_text feed_content_textarea form-control col-sm-5" rows="1"
+                    placeholder="제목을 작성해 주세요" style="background-color: white;"></textarea>
             </div>
             <div>
                 <textarea id="input_content" class="modal_text feed_content_textarea form-control col-sm-5" rows="5"
@@ -109,25 +122,6 @@
         </div>
     </div>
 
-    <div class="info_container" style="background-color:white">
-        <div class="info_text_box">
-            <span class="info_text">
-                <h5><b><span style="color:dodgerblue">C</span><span style=color:black>olor</span><span
-                            style=color:tomato>S</span><span style=color:black>hop</span> 자동 채색</b> 이용하기</h5>
-                <p style="line-height:25px;">
-                    1. 채색하고자 하는 스케치를 png 또는 jpg 형태의 이미지 파일로 업로드 해주세요.<br>
-                    2. 3가지 채색 모델 중 하나를 선택하고 '채색하기' 버튼을 누르면 오른쪽에 결과 이미지가 나타납니다.<br>
-                    3. 변환된 이미지로 게시글을 작성해 ColorShop 커뮤니티에 올려보세요! 커뮤니티에서는 다른 사람들의 이미지를 보고 댓글과 좋아요를 남길 수 있습니다.<br>
-                    4. 좋아요를 많이 받은 게시글은 사이트 메인페이지에 게시됩니다! ColorShop으로 여러분이 그린 그림을 채색해보세요!<br><br>
-                </p>
-                <b style="font-size:large;">주의할 점</b>
-                <p style="margin-top:5px; line-height:25px;">
-                    이미 채색되어 있는 이미지를 채색하면 오히려 이상해질 수 있습니다.<br>
-                    ColorShop은 사전 학습된 AI모델을 통해 채색 기능을 제공하지만 고도로 학습된 모델이 아니기 때문에 결과가 만족스럽지 못할 수 있습니다.
-                </p>
-            </span>
-        </div>
-    </div>
 
     <footer include-html="/html/footer.html"></footer>
 
