@@ -302,7 +302,6 @@ async function transForm2(event) {
     }
 }
 
-
 function updateBorders(color) {
     var hexColor = "transparent";
     if (color) {

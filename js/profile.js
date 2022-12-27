@@ -64,11 +64,15 @@ async function postImageListButton(){
         deleteImage.innerHTML = `delete`
         deleteImage.style.cursor = 'pointer'
 
-        postCardTop.appendChild(deleteImage)
-        postCard.appendChild(postCardTop)
-        postCard.appendChild(postImage)
-        postCol.appendChild(postCard)
-        postImageList.appendChild(postCol)
+        if (result[i].after_image){
+            postCardTop.appendChild(deleteImage)
+            postCard.appendChild(postCardTop)
+            postCard.appendChild(postImage)
+            postCol.appendChild(postCard)
+            postImageList.appendChild(postCol)
+        }else{
+            return;
+        }
     }
 }
 

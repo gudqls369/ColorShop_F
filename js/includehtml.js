@@ -13,7 +13,6 @@ function community(){
     location.href=url
 }
 
-// 드롭다운 이동
 function profileButton(user_id){
     if(user_id == null){
         alert('로그인해주세요')
@@ -37,7 +36,6 @@ function signinupButton(){
     location.href=url
 }
 
-// 로그인 확인
 async function checkLogin() {
     const name = await getName()
 

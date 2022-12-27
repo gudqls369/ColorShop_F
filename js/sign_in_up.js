@@ -1,12 +1,11 @@
+const backend_base_url = 'http://127.0.0.1:8000'
+const frontend_base_url = 'http://127.0.0.1:5500/html/'
+
 const signInBtn = document.getElementById("signIn");
 const signUpBtn = document.getElementById("signUp");
 const fistForm = document.getElementById("form1");
 const secondForm = document.getElementById("form2");
 const container = document.querySelector(".container");
-const frontend_base_url = 'https://auto-color.shop/html/'
-// const frontend_base_url = 'http://127.0.0.1:5500/html/'
-const backend_base_url = 'http://127.0.0.1:8000'
-
 
 signInBtn.addEventListener("click", () => {
   container.classList.remove("right-panel-active");
